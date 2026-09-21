@@ -6,7 +6,7 @@ export {
   getSelectedElements,
   getTargetElements,
 } from "./selection";
-export { calculateScrollCenter } from "./scroll";
+export { calculateScrollCenter, centerScrollOn } from "./scroll";
 export {
   hasBackground,
   hasStrokeWidth,

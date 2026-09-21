@@ -20,6 +20,10 @@ export const dragSelectedElements = (
   const [x1, y1] = getCommonBounds(selectedElements);
   const offset = { x: pointerX - x1, y: pointerY - y1 };
   selectedElements.forEach((element) => {
+    // locked elements can never be dragged (even within a multi-selection)
+    if (element.locked) {
+      return;
+    }
     updateElementCoords(
       lockDirection,
       distanceX,

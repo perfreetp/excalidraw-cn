@@ -48,6 +48,7 @@ import { ActiveConfirmDialog } from "./ActiveConfirmDialog";
 import { HandButton } from "./HandButton";
 import { isHandToolActive } from "../appState";
 import { TunnelsContext, useInitializeTunnels } from "./context/tunnels";
+import { LayersPanelHost } from "./LayersPanel/LayersPanelHost";
 import {
   getContainerNameFromStorage,
   renameContainerNameToStorage,
@@ -472,6 +473,15 @@ const LayerUI = ({
           >
             {renderWelcomeScreen && <tunnels.welcomeScreenCenterTunnel.Out />}
             {renderFixedSideContainer()}
+            {!device.isMobile && (
+              <LayersPanelHost
+                appState={appState}
+                setAppState={setAppState}
+                elements={elements}
+                actionManager={actionManager}
+                canvas={canvas}
+              />
+            )}
             <Footer
               appState={appState}
               actionManager={actionManager}

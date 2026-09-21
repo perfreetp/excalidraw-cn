@@ -26,7 +26,7 @@ const distributeSelectedElements = (
   const selectedElements = getSelectedElements(
     getNonDeletedElements(elements),
     appState,
-  );
+  ).filter((element) => !element.locked);
 
   const updatedElements = distributeElements(selectedElements, distribution);
 

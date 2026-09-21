@@ -211,6 +211,11 @@ export type AppState = {
   pendingImageElementId: ExcalidrawImageElement["id"] | null;
   showHyperlinkPopup: false | "info" | "editor";
   selectedLinearElement: LinearElementEditor | null;
+
+  /** whether the layers panel is open */
+  isLayersPanelOpen: boolean;
+  /** current layers panel search query */
+  layerSearchQuery: string;
 };
 
 export type NormalizedZoomValue = number & { _brand: "normalizedZoom" };

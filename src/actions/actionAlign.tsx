@@ -30,7 +30,7 @@ const alignSelectedElements = (
   const selectedElements = getSelectedElements(
     getNonDeletedElements(elements),
     appState,
-  );
+  ).filter((element) => !element.locked);
 
   const updatedElements = alignElements(selectedElements, alignment);
 

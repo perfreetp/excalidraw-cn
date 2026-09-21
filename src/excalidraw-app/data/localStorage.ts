@@ -177,6 +177,37 @@ export const setElementsToStorage = (elements: ExcalidrawElement[] = []) => {
   localStorage.setItem(currentContainerName, JSON.stringify(elements));
 };
 
+const getLayersMetaKey = (containerName?: string) =>
+  `excalidraw_layers_meta_${containerName || getContainerNameFromStorage()}`;
+
+type LayersMeta = {
+  collapsedGroups?: { [groupId: string]: boolean };
+};
+
+/** Per-canvas layers panel metadata (collapsed group state, ...). */
+export const getLayersMetaFromStorage = (
+  containerName?: string,
+): LayersMeta => {
+  try {
+    const raw = localStorage.getItem(getLayersMetaKey(containerName));
+    return raw ? JSON.parse(raw) : {};
+  } catch (error) {
+    console.error("localStorage getLayersMeta error", error);
+    return {};
+  }
+};
+
+export const setLayersMetaToStorage = (
+  meta: LayersMeta,
+  containerName?: string,
+) => {
+  try {
+    localStorage.setItem(getLayersMetaKey(containerName), JSON.stringify(meta));
+  } catch (error) {
+    console.error("localStorage setLayersMeta error", error);
+  }
+};
+
 export const renameContainerNameToStorage = (
   oldName: string,
   newName: string,

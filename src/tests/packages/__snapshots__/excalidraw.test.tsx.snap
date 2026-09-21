@@ -119,10 +119,10 @@ exports[`<Excalidraw/> Test UIOptions prop Test canvasActions should render menu
     style="--padding: 2; z-index: 1;"
   >
     <button
-      aria-label="Open"
+      aria-label="Open File"
       class="dropdown-menu-item dropdown-menu-item-base"
       data-testid="load-button"
-      title="Open"
+      title="Open File"
       type="button"
     >
       <div
@@ -148,7 +148,7 @@ exports[`<Excalidraw/> Test UIOptions prop Test canvasActions should render menu
       <div
         class="dropdown-menu-item__text"
       >
-        Open
+        Open File
       </div>
       <div
         class="dropdown-menu-item__shortcut"

@@ -18,6 +18,7 @@ export const getElementsWithinSelection = (
 
     return (
       element.locked === false &&
+      !element.hidden &&
       element.type !== "selection" &&
       !isBoundToContainer(element) &&
       selectionX1 <= elementX1 &&

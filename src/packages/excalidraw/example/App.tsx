@@ -198,6 +198,7 @@ export default function App() {
             groupIds: [],
             boundElements: null,
             locked: false,
+            hidden: false,
             link: null,
             updated: 1,
             roundness: {

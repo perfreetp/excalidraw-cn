@@ -18,7 +18,8 @@ export const actionSelectAll = register({
         if (
           !element.isDeleted &&
           !(isTextElement(element) && element.containerId) &&
-          !element.locked
+          !element.locked &&
+          !element.hidden
         ) {
           map[element.id] = true;
         }

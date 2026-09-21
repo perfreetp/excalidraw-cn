@@ -92,6 +92,8 @@ export const getDefaultAppState = (): Omit<
     pendingImageElementId: null,
     showHyperlinkPopup: false,
     selectedLinearElement: null,
+    isLayersPanelOpen: true,
+    layerSearchQuery: "",
   };
 };
 
@@ -185,6 +187,8 @@ const APP_STATE_STORAGE_CONF = (<
   pendingImageElementId: { browser: false, export: false, server: false },
   showHyperlinkPopup: { browser: false, export: false, server: false },
   selectedLinearElement: { browser: true, export: false, server: false },
+  isLayersPanelOpen: { browser: false, export: false, server: false },
+  layerSearchQuery: { browser: false, export: false, server: false },
 });
 
 const _clearAppStateForStorage = <

@@ -10,6 +10,7 @@ Object {
   "fillStyle": "hachure",
   "groupIds": Array [],
   "height": 110,
+  "hidden": false,
   "id": "id0",
   "isDeleted": false,
   "lastCommittedPoint": Array [
@@ -63,6 +64,7 @@ Object {
   "fillStyle": "hachure",
   "groupIds": Array [],
   "height": 110,
+  "hidden": false,
   "id": "id0",
   "isDeleted": false,
   "lastCommittedPoint": Array [

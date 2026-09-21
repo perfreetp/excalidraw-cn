@@ -60,6 +60,7 @@ import {
   getLinkHandleFromCoords,
 } from "../element/Hyperlink";
 import { isLinearElement } from "../element/typeChecks";
+import { elementMatchesQuery } from "../element/layerUtils";
 
 const hasEmojiSupport = supportsEmoji();
 export const DEFAULT_SPACING = 2;
@@ -434,6 +435,36 @@ export const _renderScene = ({
         renderConfig,
         editingLinearElement,
       );
+    }
+
+    // Paint layers-panel search highlights
+    if (!isExporting && appState.layerSearchQuery.trim()) {
+      context.save();
+      context.translate(renderConfig.scrollX, renderConfig.scrollY);
+      context.lineWidth = 2 / renderConfig.zoom.value;
+      context.strokeStyle = "#f08c00";
+      context.setLineDash([
+        6 / renderConfig.zoom.value,
+        4 / renderConfig.zoom.value,
+      ]);
+      for (const element of visibleElements) {
+        if (!elementMatchesQuery(element, appState.layerSearchQuery)) {
+          continue;
+        }
+        const [x1, y1, x2, y2] = getElementAbsoluteCoords(element);
+        const padding = 6 / renderConfig.zoom.value;
+        strokeRectWithRotation(
+          context,
+          x1 - padding,
+          y1 - padding,
+          x2 - x1 + padding * 2,
+          y2 - y1 + padding * 2,
+          (x1 + x2) / 2,
+          (y1 + y2) / 2,
+          element.angle,
+        );
+      }
+      context.restore();
     }
 
     // Paint selection element

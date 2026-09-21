@@ -133,6 +133,7 @@ const createLinearElementWithCurveInsideMinMaxPoints = (
     boundElements: null,
     link: null,
     locked: false,
+    hidden: false,
     points: [
       [0, 0],
       [-922.4761962890625, 300.3277587890625],
@@ -166,6 +167,7 @@ const createLinearElementsWithCurveOutsideMinMaxPoints = (
     boundElements: null,
     link: null,
     locked: false,
+    hidden: false,
     points: [
       [0, 0],
       [-584.1485186423079, -15.365636022723947],

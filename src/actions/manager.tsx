@@ -128,6 +128,20 @@ export class ActionManager {
     this.updater(action.perform(elements, appState, value, this.app));
   }
 
+  /** execute an action with arbitrary form data (used by layers panel) */
+  executeActionWithData(
+    action: Action,
+    data: any,
+    source: ActionSource = "ui",
+  ) {
+    const elements = this.getElementsIncludingDeleted();
+    const appState = this.getAppState();
+
+    trackAction(action, source, appState, elements, this.app, data);
+
+    this.updater(action.perform(elements, appState, data, this.app));
+  }
+
   /**
    * @param data additional data sent to the PanelComponent
    */

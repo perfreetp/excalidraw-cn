@@ -135,6 +135,7 @@ const restoreElementWithProperties = <
     updated: element.updated ?? getUpdatedTimestamp(),
     link: element.link ?? null,
     locked: element.locked ?? false,
+    hidden: (element as unknown as { hidden?: boolean }).hidden ?? false,
   };
 
   if ("customData" in element) {

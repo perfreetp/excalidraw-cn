@@ -113,6 +113,10 @@ export type ActionName =
   | "hyperlink"
   | "bindText"
   | "toggleLock"
+  | "setLayerProperty"
+  | "renameLayer"
+  | "deleteLayers"
+  | "reorderLayer"
   | "toggleLinearEditor"
   | "toggleEraserTool"
   | "toggleHandTool";

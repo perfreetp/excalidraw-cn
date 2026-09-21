@@ -1342,7 +1342,10 @@ class App extends React.Component<AppProps, AppState> {
           this.state.editingElement.type !== "text" ||
           element.id !== this.state.editingElement.id
         );
-      });
+      })
+      // hidden elements are not rendered on canvas (but still listed in the
+      // layers panel)
+      .filter((element) => !element.hidden);
 
     const selectionColor = getComputedStyle(
       document.querySelector(".excalidraw")!,
@@ -1704,6 +1707,7 @@ class App extends React.Component<AppProps, AppState> {
       textAlign: this.state.currentItemTextAlign,
       verticalAlign: DEFAULT_VERTICAL_ALIGN,
       locked: false,
+      hidden: false,
     };
 
     const LINE_GAP = 10;
@@ -2529,6 +2533,7 @@ class App extends React.Component<AppProps, AppState> {
             .filter(
               (element) =>
                 (includeLockedElements || !element.locked) &&
+                !element.hidden &&
                 (includeBoundTextElement ||
                   !(isTextElement(element) && element.containerId)),
             );
@@ -2640,6 +2645,7 @@ class App extends React.Component<AppProps, AppState> {
           containerId: shouldBindToContainer ? container?.id : undefined,
           groupIds: container?.groupIds ?? [],
           locked: false,
+          hidden: false,
         });
 
     if (!existingTextElement && shouldBindToContainer && container) {
@@ -4148,6 +4154,7 @@ class App extends React.Component<AppProps, AppState> {
       roundness: null,
       simulatePressure: event.pressure === 0.5,
       locked: false,
+      hidden: false,
     });
 
     this.setState((prevState) => ({
@@ -4204,6 +4211,7 @@ class App extends React.Component<AppProps, AppState> {
       roundness: null,
       opacity: this.state.currentItemOpacity,
       locked: false,
+      hidden: false,
     });
 
     return element;
@@ -4295,6 +4303,7 @@ class App extends React.Component<AppProps, AppState> {
         startArrowhead,
         endArrowhead,
         locked: false,
+        hidden: false,
       });
       this.setState((prevState) => ({
         selectedElementIds: {
@@ -4351,6 +4360,7 @@ class App extends React.Component<AppProps, AppState> {
             }
           : null,
       locked: false,
+      hidden: false,
     });
 
     if (element.type === "selection") {

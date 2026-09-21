@@ -107,6 +107,7 @@ export class API {
       : never;
     points?: T extends "arrow" | "line" ? readonly Point[] : never;
     locked?: boolean;
+  hidden?: boolean;
     fileId?: T extends "image" ? string : never;
     scale?: T extends "image" ? ExcalidrawImageElement["scale"] : never;
     status?: T extends "image" ? ExcalidrawImageElement["status"] : never;
@@ -164,6 +165,7 @@ export class API {
       opacity: rest.opacity ?? appState.currentItemOpacity,
       boundElements: rest.boundElements ?? null,
       locked: rest.locked ?? false,
+      hidden: rest.hidden ?? false,
     };
     switch (type) {
       case "rectangle":

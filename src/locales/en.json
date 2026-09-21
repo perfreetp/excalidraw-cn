@@ -119,7 +119,6 @@
       "edit": "Edit line",
       "exit": "Exit line editor"
     },
-
     "elementLock": {
       "lock": "Lock",
       "unlock": "Unlock",
@@ -463,5 +462,40 @@
       "toolbarHint": "Pick a tool & Start drawing!",
       "helpHint": "Shortcuts & help"
     }
+  },
+  "layersPanel": {
+    "title": "Layers",
+    "searchPlaceholder": "Search layers",
+    "empty": "No layers yet. Draw something on the canvas.",
+    "noSearchResults": "No layers match your search.",
+    "typeRectangle": "Rectangle",
+    "typeDiamond": "Diamond",
+    "typeEllipse": "Ellipse",
+    "typeArrow": "Arrow",
+    "typeLine": "Line",
+    "typeFreedraw": "Draw",
+    "typeText": "Text",
+    "typeImage": "Image",
+    "group": "Group",
+    "lock": "Lock",
+    "unlock": "Unlock",
+    "hide": "Hide",
+    "show": "Show",
+    "rename": "Rename",
+    "delete": "Delete",
+    "groupSelected": "Group selected",
+    "ungroupSelected": "Ungroup selected",
+    "alignLeft": "Align left",
+    "alignHorizontallyCentered": "Center horizontally",
+    "alignRight": "Align right",
+    "alignTop": "Align top",
+    "alignVerticallyCentered": "Center vertically",
+    "alignBottom": "Align bottom",
+    "distributeHorizontally": "Distribute horizontally",
+    "distributeVertically": "Distribute vertically",
+    "itemsSelected": "{{count}} layers selected",
+    "togglePanel": "Toggle layers panel",
+    "collapseGroup": "Collapse group",
+    "expandGroup": "Expand group"
   }
 }

@@ -85,4 +85,10 @@ export { actionToggleStats } from "./actionToggleStats";
 export { actionUnbindText, actionBindText } from "./actionBoundText";
 export { actionLink } from "../element/Hyperlink";
 export { actionToggleLock } from "./actionToggleLock";
+export {
+  actionSetLayerProperty,
+  actionRenameLayer,
+  actionDeleteLayers,
+  actionReorderLayer,
+} from "./actionLayers";
 export { actionToggleLinearEditor } from "./actionLinearEditor";
