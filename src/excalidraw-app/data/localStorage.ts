@@ -7,6 +7,10 @@ import {
 import { clearElementsForLocalStorage } from "../../element";
 import { STORAGE_KEYS } from "../app_constants";
 import { ImportedDataState } from "../../data/types";
+import {
+  removeCommentsStorage,
+  renameCommentsStorage,
+} from "../../comments/storage";
 
 export const saveUsernameToLocalStorage = (username: string) => {
   try {
@@ -195,6 +199,8 @@ export const renameContainerNameToStorage = (
 
   localStorage.removeItem(oldName);
 
+  renameCommentsStorage(oldName, newName);
+
   const containerList = getContainerListFromStorage();
 
   const newContainerList = containerList.map((name: string) => {
@@ -209,6 +215,8 @@ export const renameContainerNameToStorage = (
 
 export const removeContainerFromStorage = (containerName: string) => {
   localStorage.removeItem(containerName);
+
+  removeCommentsStorage(containerName);
 
   const containerList = getContainerListFromStorage();
 

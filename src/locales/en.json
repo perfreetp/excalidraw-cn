@@ -119,7 +119,6 @@
       "edit": "Edit line",
       "exit": "Exit line editor"
     },
-
     "elementLock": {
       "lock": "Lock",
       "unlock": "Unlock",
@@ -223,7 +222,9 @@
     "penMode": "Pen mode - prevent touch",
     "link": "Add/ Update link for a selected shape",
     "eraser": "Eraser",
-    "hand": "Hand (panning tool)"
+    "hand": "Hand (panning tool)",
+    "commentMode": "Comment mode – click on canvas to add a comment",
+    "commentList": "Toggle comments list"
   },
   "headings": {
     "canvasActions": "Canvas actions",
@@ -462,6 +463,41 @@
       "center_heading": "Diagrams. Made. Simple.",
       "toolbarHint": "Pick a tool & Start drawing!",
       "helpHint": "Shortcuts & help"
+    }
+  },
+  "comments": {
+    "title": "Comments",
+    "newComment": "New comment",
+    "placeholder": "Type your comment... (Ctrl+Enter to submit)",
+    "replyPlaceholder": "Write a reply... (Ctrl+Enter to send)",
+    "submit": "Submit",
+    "reply": "Reply",
+    "edit": "Edit",
+    "delete": "Delete",
+    "markResolved": "Mark as resolved",
+    "reopen": "Reopen",
+    "resolved": "Resolved",
+    "anonymous": "Anonymous",
+    "orphanedHint": "The anchored shape was deleted. This comment has lost its anchor.",
+    "orphanedShort": "Anchor lost",
+    "orphanedToast": "A comment's anchored shape was deleted; the comment lost its anchor.",
+    "confirmDelete": "Delete this comment and all its replies?",
+    "confirmDeleteReply": "Delete this reply?",
+    "replyCount": "{{count}} replies",
+    "empty": "No comments yet. Enable comment mode in the toolbar and click on the canvas to add one.",
+    "export": "Export",
+    "exportTitle": "Comments for canvas \"{{name}}\"",
+    "exportTime": "Exported at {{time}}",
+    "exportEmpty": "No comments.",
+    "statusOpen": "Open",
+    "statusResolved": "Resolved",
+    "anchorElement": "Anchored to shape",
+    "anchorCanvas": "On canvas",
+    "anchorOrphaned": "Anchor lost",
+    "filter": {
+      "all": "All",
+      "open": "Open",
+      "resolved": "Resolved"
     }
   }
 }

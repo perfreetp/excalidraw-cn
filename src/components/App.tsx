@@ -39,6 +39,10 @@ import {
 import { createRedoAction, createUndoAction } from "../actions/actionHistory";
 import { ActionManager } from "../actions/manager";
 import { actions } from "../actions/register";
+import { jotaiStore } from "../jotai";
+import { commentModeAtom, openDraftComment } from "../comments/store";
+import { CommentLayer } from "../comments/CommentLayer";
+import { CommentSidebar } from "../comments/CommentSidebar";
 import { ActionResult } from "../actions/types";
 import { trackEvent } from "../analytics";
 import {
@@ -399,6 +403,7 @@ class App extends React.Component<AppProps, AppState> {
   lastPointerDown: React.PointerEvent<HTMLCanvasElement> | null = null;
   lastPointerUp: React.PointerEvent<HTMLElement> | PointerEvent | null = null;
   lastScenePointer: { x: number; y: number } | null = null;
+  commentPointerDown: { clientX: number; clientY: number } | null = null;
 
   constructor(props: AppProps) {
     super(props);
@@ -619,6 +624,16 @@ class App extends React.Component<AppProps, AppState> {
                     >
                       {this.props.children}
                     </LayerUI>
+                    <CommentLayer
+                      appState={this.state}
+                      elements={this.scene.getNonDeletedElements()}
+                      setToast={this.setToast}
+                    />
+                    <CommentSidebar
+                      appState={this.state}
+                      elements={this.scene.getNonDeletedElements()}
+                      setAppState={this.setAppState}
+                    />
                     <div className="excalidraw-textEditorContainer" />
                     <div className="excalidraw-contextMenuContainer" />
                     {selectedElement.length === 1 &&
@@ -1789,6 +1804,7 @@ class App extends React.Component<AppProps, AppState> {
       this.resetContextMenuTimer();
     }
 
+    this.commentPointerDown = null;
     gesture.pointers.delete(event.pointerId);
   };
 
@@ -3448,6 +3464,15 @@ class App extends React.Component<AppProps, AppState> {
       return;
     }
 
+    // 批注模式：记录按下位置，在 pointerup 时创建评论
+    if (jotaiStore.get(commentModeAtom)) {
+      this.commentPointerDown = {
+        clientX: event.clientX,
+        clientY: event.clientY,
+      };
+      return;
+    }
+
     // State for the duration of a pointer interaction, which starts with a
     // pointerDown event, ends with a pointerUp event (or another pointerDown)
     const pointerDownState = this.initialPointerDownState(event);
@@ -3558,6 +3583,40 @@ class App extends React.Component<AppProps, AppState> {
     event: React.PointerEvent<HTMLCanvasElement>,
   ) => {
     this.lastPointerUp = event;
+    // 批注模式：点击（非拖动）时在对应位置创建评论草稿
+    if (this.commentPointerDown) {
+      const pointerDown = this.commentPointerDown;
+      this.commentPointerDown = null;
+      const dragDistance = Math.hypot(
+        event.clientX - pointerDown.clientX,
+        event.clientY - pointerDown.clientY,
+      );
+      if (dragDistance < 5 && jotaiStore.get(commentModeAtom)) {
+        const scenePointer = viewportCoordsToSceneCoords(
+          { clientX: event.clientX, clientY: event.clientY },
+          this.state,
+        );
+        const hitElement = this.getElementAtPosition(
+          scenePointer.x,
+          scenePointer.y,
+          { includeBoundTextElement: true, includeLockedElements: true },
+        );
+        openDraftComment({
+          x: scenePointer.x,
+          y: scenePointer.y,
+          elementId: hitElement ? hitElement.id : null,
+          offsetFx: hitElement
+            ? (scenePointer.x - hitElement.x) / (hitElement.width || 1)
+            : 0,
+          offsetFy: hitElement
+            ? (scenePointer.y - hitElement.y) / (hitElement.height || 1)
+            : 0,
+        });
+      }
+      this.removePointer(event);
+      this.setState({ cursorButton: "up" });
+      return;
+    }
     if (this.device.isTouchScreen) {
       const scenePointer = viewportCoordsToSceneCoords(
         { clientX: event.clientX, clientY: event.clientY },

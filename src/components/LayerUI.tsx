@@ -20,6 +20,10 @@ import { HintViewer } from "./HintViewer";
 import { Island } from "./Island";
 import { LoadingMessage } from "./LoadingMessage";
 import { LockButton } from "./LockButton";
+import {
+  CommentModeButton,
+  CommentPanelButton,
+} from "../comments/CommentToolbarButtons";
 import { MobileMenu } from "./MobileMenu";
 import { PasteChartDialog } from "./PasteChartDialog";
 import { Section } from "./Section";
@@ -323,6 +327,11 @@ const LayerUI = ({
                             onChange={onLockToggle}
                             title={t("toolBar.lock")}
                           />
+
+                          <div className="App-toolbar__divider"></div>
+
+                          <CommentModeButton />
+                          <CommentPanelButton />
 
                           <div className="App-toolbar__divider"></div>
 

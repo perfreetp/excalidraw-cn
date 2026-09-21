@@ -222,7 +222,9 @@
     "lock": "绘制后保持所选的工具栏状态",
     "penMode": "笔模式 – 避免误触",
     "link": "为选中的形状添加/更新链接",
-    "eraser": "橡皮"
+    "eraser": "橡皮",
+    "commentMode": "批注模式 – 点击画布任意位置添加评论",
+    "commentList": "显示/隐藏评论列表"
   },
   "headings": {
     "canvasActions": "画布动作",
@@ -460,6 +462,41 @@
       "center_heading": "图，化繁为简。",
       "toolbarHint": "选择工具并开始绘图！",
       "helpHint": "快捷键和帮助"
+    }
+  },
+  "comments": {
+    "title": "评论",
+    "newComment": "新建评论",
+    "placeholder": "输入评论内容…（Ctrl+Enter 提交）",
+    "replyPlaceholder": "输入回复内容…（Ctrl+Enter 发送）",
+    "submit": "提交",
+    "reply": "回复",
+    "edit": "编辑",
+    "delete": "删除",
+    "markResolved": "标记为已解决",
+    "reopen": "重新打开",
+    "resolved": "已解决",
+    "anonymous": "匿名",
+    "orphanedHint": "锚定的图形已被删除，该评论已失去锚点。",
+    "orphanedShort": "已失去锚点",
+    "orphanedToast": "有评论锚定的图形被删除，该评论已失去锚点。",
+    "confirmDelete": "确定删除该评论及其所有回复吗？",
+    "confirmDeleteReply": "确定删除该回复吗？",
+    "replyCount": "{{count}} 条回复",
+    "empty": "暂无评论。在工具栏开启批注模式后，点击画布任意位置即可添加评论。",
+    "export": "导出",
+    "exportTitle": "画布「{{name}}」评论清单",
+    "exportTime": "导出时间：{{time}}",
+    "exportEmpty": "暂无评论。",
+    "statusOpen": "未解决",
+    "statusResolved": "已解决",
+    "anchorElement": "锚定图形",
+    "anchorCanvas": "画布空白处",
+    "anchorOrphaned": "已失去锚点",
+    "filter": {
+      "all": "全部",
+      "open": "未解决",
+      "resolved": "已解决"
     }
   }
 }
