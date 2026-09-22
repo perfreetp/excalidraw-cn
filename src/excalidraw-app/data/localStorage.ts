@@ -7,6 +7,10 @@ import {
 import { clearElementsForLocalStorage } from "../../element";
 import { STORAGE_KEYS } from "../app_constants";
 import { ImportedDataState } from "../../data/types";
+import {
+  removeCommentsCanvas,
+  renameCommentsCanvas,
+} from "../../comments/commentStorage";
 
 export const saveUsernameToLocalStorage = (username: string) => {
   try {
@@ -205,6 +209,9 @@ export const renameContainerNameToStorage = (
   });
 
   setContainerListToStorage(newContainerList);
+
+  // 同步迁移该画布下的评论数据，避免重命名后丢失
+  renameCommentsCanvas(oldName, newName);
 };
 
 export const removeContainerFromStorage = (containerName: string) => {
@@ -217,6 +224,9 @@ export const removeContainerFromStorage = (containerName: string) => {
   });
 
   setContainerListToStorage(newContainerList);
+
+  // 同步清理该画布下的评论数据
+  removeCommentsCanvas(containerName);
 };
 
 export const getAllContainerListElementsFromStorage = () => {

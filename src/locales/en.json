@@ -463,5 +463,40 @@
       "toolbarHint": "Pick a tool & Start drawing!",
       "helpHint": "Shortcuts & help"
     }
+  },
+  "comments": {
+    "title": "Comments",
+    "mode": "Comment mode",
+    "newComment": "New comment",
+    "placeholder": "Write a comment, Ctrl/⌘ + Enter to submit",
+    "replyPlaceholder": "Reply to this comment…",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteThread": "Delete comment",
+    "reply": "Reply",
+    "markResolved": "Mark as resolved",
+    "reopen": "Reopen",
+    "resolved": "Resolved",
+    "unresolved": "Unresolved",
+    "orphaned": "Anchor lost",
+    "anchored": "Pinned to shape",
+    "onCanvas": "On canvas",
+    "comment": "Comment",
+    "edited": "edited",
+    "defaultAuthor": "Me",
+    "empty": "No comments yet. Enable comment mode in the toolbar and click on the canvas.",
+    "export": "Export list",
+    "exportTitle": "Comments for canvas \"{{name}}\"",
+    "exportedAt": "Exported at",
+    "messageCount": "{{count}} comments",
+    "anchorLost": "{{count}} comment(s) lost their anchored shape and were moved to the canvas",
+    "filter": {
+      "all": "All",
+      "unresolved": "Unresolved",
+      "resolved": "Resolved"
+    }
   }
 }

@@ -53,6 +53,12 @@ import {
   renameContainerNameToStorage,
 } from "../excalidraw-app/data/localStorage";
 import InputPreview from "./InputPreview";
+import { CommentLayer } from "../comments/CommentLayer";
+import { CommentsSidebar } from "../comments/CommentsSidebar";
+import {
+  CommentModeButton,
+  CommentPanelButton,
+} from "../comments/CommentButtons";
 
 interface LayerUIProps {
   actionManager: ActionManager;
@@ -333,6 +339,18 @@ const LayerUI = ({
                             isMobile
                           />
 
+                          <div className="App-toolbar__divider"></div>
+
+                          <CommentModeButton
+                            checked={appState.commentMode}
+                            onChange={() =>
+                              setAppState({
+                                commentMode: !appState.commentMode,
+                              })
+                            }
+                          />
+                          <CommentPanelButton />
+
                           <ShapesSwitcher
                             appState={appState}
                             canvas={canvas}
@@ -472,6 +490,15 @@ const LayerUI = ({
           >
             {renderWelcomeScreen && <tunnels.welcomeScreenCenterTunnel.Out />}
             {renderFixedSideContainer()}
+            {!appState.viewModeEnabled && (
+              <>
+                <CommentLayer appState={appState} />
+                <CommentsSidebar
+                  appState={appState}
+                  setAppState={setAppState}
+                />
+              </>
+            )}
             <Footer
               appState={appState}
               actionManager={actionManager}

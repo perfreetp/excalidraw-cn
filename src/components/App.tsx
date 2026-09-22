@@ -164,6 +164,7 @@ import {
 } from "../groups";
 import History from "../history";
 import { defaultLang, getLanguage, languages, setLanguage, t } from "../i18n";
+import { commentsStore } from "../comments/commentsStore";
 import {
   CODES,
   shouldResizeFromCenter,
@@ -382,6 +383,7 @@ class App extends React.Component<AppProps, AppState> {
   public scene: Scene;
   private fonts: Fonts;
   private resizeObserver: ResizeObserver | undefined;
+  private unsubscribeCommentOrphaned: (() => void) | undefined;
   private nearestScrollableContainer: HTMLElement | Document | undefined;
   public library: AppClassProperties["library"];
   public libraryItemsFromStorage: LibraryItems | undefined;
@@ -559,6 +561,7 @@ class App extends React.Component<AppProps, AppState> {
         className={clsx("excalidraw excalidraw-container", {
           "excalidraw--view-mode": this.state.viewModeEnabled,
           "excalidraw--mobile": this.device.isMobile,
+          "comment-mode": this.state.commentMode,
         })}
         ref={this.excalidrawContainerRef}
         onDrop={this.handleAppOnDrop}
@@ -908,6 +911,15 @@ class App extends React.Component<AppProps, AppState> {
     this.excalidrawContainerValue.container =
       this.excalidrawContainerRef.current;
 
+    // 评论：初始化元素快照，并订阅「失去锚点」事件进行提示
+    commentsStore.syncElements(this.scene.getElementsIncludingDeleted());
+    this.unsubscribeCommentOrphaned = commentsStore.onOrphaned((threads) => {
+      this.setToast({
+        message: t("comments.anchorLost", { count: threads.length }),
+        duration: 3000,
+      });
+    });
+
     if (
       process.env.NODE_ENV === ENV.TEST ||
       process.env.NODE_ENV === ENV.DEVELOPMENT
@@ -1009,6 +1021,7 @@ class App extends React.Component<AppProps, AppState> {
     this.imageCache.clear();
     this.resizeObserver?.disconnect();
     this.unmounted = true;
+    this.unsubscribeCommentOrphaned?.();
     this.removeEventListeners();
     this.scene.destroy();
     clearTimeout(touchTimeout);
@@ -1152,6 +1165,9 @@ class App extends React.Component<AppProps, AppState> {
     ) {
       this.setState({ showWelcomeScreen: true });
     }
+
+    // 同步评论锚点：锚定图形被删除时评论定格并提示失去锚点
+    commentsStore.syncElements(this.scene.getElementsIncludingDeleted());
 
     if (
       this.excalidrawContainerRef.current &&
@@ -3456,6 +3472,20 @@ class App extends React.Component<AppProps, AppState> {
       return;
     }
 
+    // 批注模式：点击画布放置评论，不进入常规绘制/选择流程
+    if (this.state.commentMode && !this.state.viewModeEnabled) {
+      this.handleCommentModePointerDown(event);
+      return;
+    }
+
+    // 点击画布其他位置时关闭打开的评论弹窗
+    if (
+      commentsStore.getState().activeThreadId ||
+      commentsStore.getState().draft
+    ) {
+      commentsStore.setActiveThread(null);
+    }
+
     this.clearSelectionIfNotUsingSelection();
     this.updateBindingEnabledOnPointerMove(event);
 
@@ -3552,6 +3582,25 @@ class App extends React.Component<AppProps, AppState> {
       pointerDownState.eventListeners.onKeyUp = onKeyUp;
       pointerDownState.eventListeners.onKeyDown = onKeyDown;
     }
+  };
+
+  private handleCommentModePointerDown = (
+    event: React.PointerEvent<HTMLCanvasElement>,
+  ) => {
+    const { x, y } = viewportCoordsToSceneCoords(event, this.state);
+    const hitElement = this.getElementAtPosition(x, y, {
+      includeBoundTextElement: true,
+      includeLockedElements: true,
+    });
+    // 点击在图形上时评论钉在图形上（记录相对位置以便跟随移动/缩放），
+    // 否则评论落在画布空白处
+    commentsStore.startDraft({
+      x,
+      y,
+      elementId: hitElement ? hitElement.id : null,
+      relX: hitElement ? (x - hitElement.x) / (hitElement.width || 1) : 0,
+      relY: hitElement ? (y - hitElement.y) / (hitElement.height || 1) : 0,
+    });
   };
 
   private handleCanvasPointerUp = (

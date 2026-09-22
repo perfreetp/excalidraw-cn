@@ -9,6 +9,7 @@ Object {
     "type": "selection",
   },
   "collaborators": Map {},
+  "commentMode": false,
   "contextMenu": null,
   "currentChartType": "bar",
   "currentItemBackgroundColor": "transparent",

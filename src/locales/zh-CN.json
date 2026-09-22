@@ -461,5 +461,40 @@
       "toolbarHint": "选择工具并开始绘图！",
       "helpHint": "快捷键和帮助"
     }
+  },
+  "comments": {
+    "title": "评论",
+    "mode": "批注模式",
+    "newComment": "新建评论",
+    "placeholder": "输入评论内容，Ctrl/⌘ + Enter 提交",
+    "replyPlaceholder": "回复这条评论…",
+    "submit": "提交",
+    "cancel": "取消",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "deleteThread": "删除评论",
+    "reply": "回复",
+    "markResolved": "标记已解决",
+    "reopen": "重新打开",
+    "resolved": "已解决",
+    "unresolved": "未解决",
+    "orphaned": "已失去锚点",
+    "anchored": "钉在图形上",
+    "onCanvas": "画布空白处",
+    "comment": "评论",
+    "edited": "已编辑",
+    "defaultAuthor": "我",
+    "empty": "暂无评论，点击工具栏批注模式后在画布上添加",
+    "export": "导出清单",
+    "exportTitle": "画布「{{name}}」评论清单",
+    "exportedAt": "导出时间",
+    "messageCount": "{{count}} 条评论",
+    "anchorLost": "有 {{count}} 条评论锚定的图形已被删除，已移动到画布空白处",
+    "filter": {
+      "all": "全部",
+      "unresolved": "未解决",
+      "resolved": "已解决"
+    }
   }
 }

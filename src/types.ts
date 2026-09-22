@@ -131,6 +131,8 @@ export type AppState = {
   );
   penMode: boolean;
   penDetected: boolean;
+  /** 批注模式：开启后点击画布放置评论 */
+  commentMode: boolean;
   exportBackground: boolean;
   exportEmbedScene: boolean;
   exportWithDarkMode: boolean;

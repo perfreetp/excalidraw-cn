@@ -79,6 +79,7 @@ import { loadFilesFromFirebase } from "./data/firebase";
 import { LocalData } from "./data/LocalData";
 import { isBrowserStorageStateNewer } from "./data/tabSync";
 import clsx from "clsx";
+import { commentsStore } from "../comments/commentsStore";
 import { atom, Provider, useAtom } from "jotai";
 import { jotaiStore, useAtomWithInitialValue } from "../jotai";
 import { reconcileElements } from "./collab/reconciliation";
@@ -517,6 +518,9 @@ const ExcalidrawWrapper = () => {
     if (collabAPI?.isCollaborating()) {
       collabAPI.syncElements(elements);
     }
+
+    // 同步评论锚点/跟随定位（元素变化不一定触发 React 渲染）
+    commentsStore.syncElements(elements);
 
     setTheme(appState.theme);
 
